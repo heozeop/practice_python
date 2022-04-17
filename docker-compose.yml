@@ -22,8 +22,11 @@ services:
       - db
   frontend:
     build: ./frontend
-    commend: yarn start
+    command: yarn start
     volumes:
       - ./frontend:/app
     ports:
       - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    restart: always
