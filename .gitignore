@@ -1,0 +1,5 @@
+# tool config
+.DS_Store
+
+# data config
+data/*
