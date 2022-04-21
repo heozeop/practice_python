@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-1=te#f#$#^h(i8sh123)l3mdwx5wg)lf&+3y3h-3z=5fd+5o@^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,13 +40,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todo.apps.TodoConfig',
+    'drf_yasg',
 ]
 
 # 새로 추가할 내용
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     ]
+}
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
+    'LOGIN_URL': '/admin/login/',
+    'tagsSorter': 'alpha',
 }
 
 MIDDLEWARE = [
