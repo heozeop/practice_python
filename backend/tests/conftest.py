@@ -18,6 +18,6 @@ def todo(category, todo_factory):
     return todo_factory(category=category)
 
 @pytest.fixture(scope='function')
-def todo_batch(category, todo_factory, num = 10):
-    return todo_factory.build_batch(num, category=category)
+def todo_batch(category, todo_factory):
+    return todo_factory.build_batch(10, category=category)
 
