@@ -1,17 +1,23 @@
 import pytest
-from todo.models import Todo, TodoCategory
 from pytest_factoryboy import register
 from factories import (
     TodoCategoryFactory,
+    TodoFactory,
 )
 
 
 register(TodoCategoryFactory)
-
-@pytest.fixture(scope="session")
-def category_name():
-    return "This is Todo Category!"
+register(TodoFactory)
 
 @pytest.fixture(scope="function")
-def category_in_use(todo_category_factory, **kwargs):
-    return todo_category_factory(**kwargs)
+def category(todo_category_factory):
+    return todo_category_factory()
+
+@pytest.fixture(scope="function")
+def todo(category, todo_factory):
+    return todo_factory(category=category)
+
+@pytest.fixture(scope='function')
+def todo_batch(category, todo_factory, num = 10):
+    return todo_factory.build_batch(num, category=category)
+
