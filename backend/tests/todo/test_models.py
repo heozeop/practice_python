@@ -1,20 +1,34 @@
 import pytest
 
+from todo.models import Todo
+
+
 @pytest.mark.django_db
 class TestTodoModel:
     def test_todo_create(self, todo):
         obj = todo
-        assert obj
+        assert isinstance(obj, Todo)
 
-    def test_todo_batch_create(self, todo_batch):
-        is_all_category_same = True
-        category_name = todo_batch[0].category.name
-        for todo in todo_batch:
-            if todo.category.name != category_name:
-                is_all_category_same = False
+    def test_todo_update(self, todo, category):
+        title = 'new title'
 
-        assert is_all_category_same
+        is_title_same = todo.title == title
+        if is_title_same:
+            todo.title = ''
+            assert todo.title != title
+        else:
+            todo.title = title
+            assert todo.title == title
 
-    def test_todo_can_create_category(self, todo_factory):
-        todo = todo_factory()
-        assert todo.category
+        description = 'new description'
+        is_desc_same = todo.content == description
+        if is_desc_same:
+            todo.content = ''
+            assert todo.content != description
+        else:
+            todo.content = description
+            assert todo.content == description
+
+        todo.category = category
+        assert todo.category == category
+
