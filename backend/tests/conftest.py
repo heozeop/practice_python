@@ -1,4 +1,4 @@
-import pytest
+import pytest, logging
 from pytest_factoryboy import register
 from factories import (
     TodoCategoryFactory,
@@ -20,4 +20,3 @@ def todo(category, todo_factory):
 @pytest.fixture(scope='function')
 def todo_batch(category, todo_factory):
     return todo_factory.build_batch(10, category=category)
-

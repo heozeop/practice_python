@@ -32,3 +32,7 @@ class TestTodoModel:
         todo.category = category
         assert todo.category == category
 
+    def test_todo_update(self, todo):
+        todo.delete()
+        assert todo.id is None
+
