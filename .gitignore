@@ -1,5 +1,7 @@
 # tool config
 .DS_Store
 
-# data config
+# backend config
 data/*
+
+.idea

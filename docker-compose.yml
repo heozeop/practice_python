@@ -3,15 +3,17 @@ version: "3.9"
 services:
   db:
     image: postgres
+    container_name: db
     volumes:
       - ./data/db:/var/lib/postgresql/data
     environment:
         - POSTGRES_PASSWORD=postgres
-  web:
-    build: ./app
+  backend:
+    container_name: backend
+    build: ./backend
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./app:/app
+      - ./backend:/app
     ports:
       - "8000:8000"
     environment:
@@ -20,3 +22,14 @@ services:
       - POSTGRES_PASSWORD=postgres
     depends_on:
       - db
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    command: yarn start
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    restart: always
