@@ -15,4 +15,4 @@ jobs:
     - name: Build the Docker image
       run: docker compose up backend -d
     - name: Test
-      run: docker compose exec backend pytest -qq
+      run: docker compose exec backend pytest -q
